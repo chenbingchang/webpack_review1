@@ -1,7 +1,7 @@
 const path = require('path'); // node path模块
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // 生成html并且把，js/css自动引入
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // 打包前自动把output下面的目录清空
-const VueLoaderPlugin = require('vue-loader/lib/plugin')// 它的职责是将你定义过的其它规则复制并应用到 .vue 文件里相应语言的块。例如，如果你有一条匹配 /\.js$/ 的规则，那么它会应用到 .vue 文件里的 <script> 块。
+const VueLoaderPlugin = require('vue-loader/lib/plugin'); // 它的职责是将你定义过的其它规则复制并应用到 .vue 文件里相应语言的块。例如，如果你有一条匹配 /\.js$/ 的规则，那么它会应用到 .vue 文件里的 <script> 块。
 
 module.exports = {
   // 入口文件，可以配置多个
@@ -20,7 +20,7 @@ module.exports = {
     host: 'localhost', // 域名
     port: 8080, // 端口
     hot: true, // 是否启用热替换
-    open: true, // 启动后是否自动打开浏览器
+    open: true // 启动后是否自动打开浏览器
     // publicPath: '/assets/' // 虚拟目录，
     /* proxy: {// 代理
       "/api": "http://localhost:3000"
@@ -32,6 +32,19 @@ module.exports = {
       {
         test: /\.vue$/,
         use: ['vue-loader']
+      },
+      // 解析*.scss文件
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',// 开发环境，生产环境要用插件extract-text-plugin
+          {
+            loader: 'css-loader',
+            options: { importLoaders: 2 }
+          },
+          'postcss-loader',
+          'sass-loader'
+        ]
       }
     ]
   },
@@ -45,8 +58,6 @@ module.exports = {
     })
   ],
   resolve: {
-    alias: {
-      
-    }
+    alias: {}
   }
 };
