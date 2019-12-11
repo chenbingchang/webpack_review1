@@ -1,0 +1,9 @@
+{
+  "presets": ["@babel/preset-env"],
+  /* 
+  @babel/plugin-transform-runtime  支持完整的ES2015，
+  @babel/preset-env 本身有的只是一些基础的功能，并没有完全包含ES2015，所以需要@babel/plugin-transform-runtime，
+  当然也可以使用@babel/polyfill，但是@babel/polyfill是全部全局引入，会导致一些没有用到的也引入
+  */
+  "plugins": ["@babel/plugin-transform-runtime"]
+}

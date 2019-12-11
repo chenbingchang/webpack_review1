@@ -3,6 +3,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); // 生成html并且把
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // 打包前自动把output下面的目录清空
 const VueLoaderPlugin = require('vue-loader/lib/plugin'); // 它的职责是将你定义过的其它规则复制并应用到 .vue 文件里相应语言的块。例如，如果你有一条匹配 /\.js$/ 的规则，那么它会应用到 .vue 文件里的 <script> 块。
 
+/**
+ * HtmlWebpackPlugin 插件，自动生成HTML并且自动引入打包好的js
+ * uglifyjs-webpack-plugin 插件，压缩JS
+ * babel-loader loader，编译js
+ * mini-css-extract-plugin 插件，压缩css
+ * extract-text-plugin 插件，把css分离出来
+ * postcss-loader loader，给css加兼容性前缀
+ * 
+ * CleanWebpackPlugin 插件，打包前自动把output下面的目录清空
+ */
+
 module.exports = {
   // 入口文件，可以配置多个
   entry: './src/main.js',
@@ -28,6 +39,19 @@ module.exports = {
   },
   module: {
     rules: [
+      // 编译js
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            // options: {
+            //   presets: ['@babel/preset-env']
+            // }
+          }
+        ]
+      },
       // 解析*.vue文件
       {
         test: /\.vue$/,
@@ -37,13 +61,30 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          'style-loader',// 开发环境，生产环境要用插件extract-text-plugin
+          'style-loader', // 开发环境，生产环境要用插件extract-text-plugin/mini-css-extract-plugin
           {
             loader: 'css-loader',
             options: { importLoaders: 2 }
           },
           'postcss-loader',
           'sass-loader'
+        ]
+      },
+      // 解析图片
+      /**
+       * file-loader/url-loader
+       * 如果图片变成<img src="[object Module]"/>这种情况是因为版本问题，可以使用的："url-loader": "^2.1.0","file-loader": "^4.2.0"
+       */
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          // {
+          //   loader: 'url-loader',
+          //   options: {
+          //     limit: 1024// 8KB
+          //   }
+          // }
+          'file-loader'
         ]
       }
     ]
