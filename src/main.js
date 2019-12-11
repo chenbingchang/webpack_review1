@@ -1,24 +1,8 @@
-function add(x, y) {
-  console.log(x, y, '我来了222');
-  return x + y;
-}
+import Vue from 'vue';
+import App from './App.vue';
 
-function addNode() {
-  let node = document.createElement('div');
+new Vue({
+  el: '#app',
+  render: h => h(App),
+})
 
-  node.innerHTML = 'webpack vue by yourself';
-  document.body.appendChild(node);
-}
-
-function addBtnNode() {
-  let node = document.createElement('button');
-
-  node.innerText = '打印';
-  node.onclick = function() {
-    add(3, 4)
-  }
-  document.body.appendChild(node);
-}
-
-addNode();
-addBtnNode()
