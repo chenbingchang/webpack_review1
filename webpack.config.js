@@ -2,6 +2,7 @@ const path = require('path'); // node path模块
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // 生成html并且把，js/css自动引入
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // 打包前自动把output下面的目录清空
 const VueLoaderPlugin = require('vue-loader/lib/plugin'); // 它的职责是将你定义过的其它规则复制并应用到 .vue 文件里相应语言的块。例如，如果你有一条匹配 /\.js$/ 的规则，那么它会应用到 .vue 文件里的 <script> 块。
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); // 压缩js，mode改成production会内部自己调用Uglifyjs
 
 /**
  * HtmlWebpackPlugin 插件，自动生成HTML并且自动引入打包好的js
@@ -10,8 +11,8 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin'); // 它的职责是将�
  * mini-css-extract-plugin 插件，压缩css
  * extract-text-plugin 插件，把css分离出来
  * postcss-loader loader，给css加兼容性前缀
- * 
  * CleanWebpackPlugin 插件，打包前自动把output下面的目录清空
+ * 要导入 CSV、TSV 和 XML，你可以使用 csv-loader 和 xml-loader。让我们处理这三类文件：
  */
 
 module.exports = {
@@ -45,10 +46,7 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'babel-loader',
-            // options: {
-            //   presets: ['@babel/preset-env']
-            // }
+            loader: 'babel-loader'
           }
         ]
       },
@@ -78,16 +76,34 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|gif)$/,
         use: [
-          // {
-          //   loader: 'url-loader',
-          //   options: {
-          //     limit: 1024// 8KB
-          //   }
-          // }
-          'file-loader'
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 1024 // 8KB
+            }
+          }
+          // 'file-loader'
         ]
+      },
+      // 解析字体
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: ['file-loader']
+      },
+      // 解析 CSV、TSV 和 XML，import进入后会变成json形式，如果没有需要这些配置可以去掉
+      {
+        test: /\.(csv|tsv)$/,
+        use: ['csv-loader']
+      },
+      {
+        test: /\.xml$/,
+        use: ['xml-loader']
       }
     ]
+  },
+  optimization: {
+    // 这是最新的方式，以前一般是放到plugins配置里面
+    minimizer: [new UglifyJsPlugin()]
   },
   // 插件
   plugins: [
