@@ -1,11 +1,12 @@
 <template>
   <div id="app">
-    <h1>1111111111111</h1>
     <div class="wrap">
-      <div class="item">aaaaa</div>
-      <div class="item">bbbbb</div>
+      <router-link to="/">home</router-link>
+      <router-link to="/mine">mine</router-link>
+      <router-link to="/car">car</router-link>
     </div>
-    <img src="./asset/logo.png" alt="">
+    <img src="./asset/logo.png" alt="" class="mini">
+    <router-view></router-view>
   </div>
 </template>
 <script>
@@ -42,5 +43,10 @@ $main_color: #f00;
 
   .wrap {
     display: flex;
+  }
+
+  .mini {
+    width: 16px;
+    height: 16px;
   }
 </style>
