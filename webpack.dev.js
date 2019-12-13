@@ -24,7 +24,8 @@ module.exports = {
   output: {
     filename: '[name].js', // 文件名称
     path: path.resolve(__dirname, 'dist'), // 文件保存的路劲
-    publicPath: '/' // 最终体现在静态资源的uri中，而不是在打包后放到指定的目录中
+    publicPath: '/', // 最终体现在静态资源的uri中，而不是在打包后放到指定的目录中
+    chunkFilename: '[name].bundle.js' // 非入口(non-entry) chunk 文件的名称。例如动态引入的文件
   },
   // 开发工具
   devtool: 'inline-source-map', // 代码出错时可以查看到打包前的代码，方便调试
@@ -105,6 +106,13 @@ module.exports = {
   optimization: {
     // 压缩JS,这是最新的方式，以前一般是放到plugins配置里面
     // minimizer: [new UglifyJsPlugin()]
+    /**
+     * 对vendor公共代码进行切割，会把用到的第三方库都放到一个文件里
+     */
+    splitChunks: {
+      // chunks: 'all', // 这表明将选择哪些块进行优化,有效值为all，async和initial
+      // name: 'splitChunks',
+    }
   },
   // 插件
   plugins: [
