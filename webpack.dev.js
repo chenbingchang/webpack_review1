@@ -135,10 +135,10 @@ module.exports = {
             
             return name
           },
-          chunks: 'async',// 
+          chunks: 'async',// 如果a.js是按需加载，那么a.js里面通过import命令导入的js也是async类型
           priority: 20,
           minChunks: 2,
-          minSize: 0
+          minSize: 30000// 小于30KB的则不用分离，否则网络请求性能更满
         }
       }
     }
