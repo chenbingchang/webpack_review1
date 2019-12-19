@@ -34,8 +34,6 @@ const dev = merge(common, {
       }
     ]
   },
-  mode: 'development'
 });
-
-console.log(dev);
+console.log(process.env.NODE_ENV)
 module.exports = dev;

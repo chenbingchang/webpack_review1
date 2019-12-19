@@ -54,7 +54,8 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: 8192 // 8KB，小于8KB的图片将被转换成base64，否则就是正常的图片
+              // limit: 8192 // 8KB，小于8KB的图片将被转换成base64，否则就是正常的图片
+              limit: 0
             }
           }
         ]

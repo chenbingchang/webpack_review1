@@ -1,7 +1,10 @@
 <template>
   <div>
     home-{{curDateTime()}}
-    <div class="name" @click="clickDiv">{{$store.state.name}}</div>
+    <div
+      class="name"
+      @click="clickDiv"
+    >{{$store.state.name}}</div>
   </div>
 </template>
 <script>
@@ -11,11 +14,13 @@ import { multiply } from '@/common/math'
 export default {
   data() {
     return {
-      
+      count: 0
     }
   },
   created() {
     sayHello()
+  },
+  mounted() {
   },
   methods: {
     curDateTime,
@@ -24,15 +29,15 @@ export default {
       let _ = import('lodash')
       console.log(_.join(['aaa', 'ccc'], 'bbbb'))
       console.log(multiply(Random.random(), Random.random()))
-    }
+    },
   }
 }
 </script>
 
 <style lang="scss">
-  .name {
-    color: #50bfff;
-    font-size: 18px;
-    // font-weight: bold;
-  }
+.name {
+  color: #50bfff;
+  font-size: 18px;
+  // font-weight: bold;
+}
 </style>

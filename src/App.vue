@@ -5,7 +5,9 @@
       <router-link to="/mine">mine</router-link>
       <router-link to="/car">car</router-link>
     </div>
-    <img src="./asset/logo.png" alt="" class="mini">
+    <!-- <img src="./asset/logo.png" alt="" class="mini"> -->
+    <img src="./asset/test2.jpg" alt="" class="mini">
+    <div class="img-div"></div>
     <router-view></router-view>
   </div>
 </template>
@@ -48,5 +50,12 @@ $main_color: #f00;
   .mini {
     width: 16px;
     height: 16px;
+  }
+  .img-div {
+    width: 80px;
+    height: 80px;
+    background: url(./asset/test2.jpg);
+    background-size: 100%;
+    object-fit: fill;
   }
 </style>
