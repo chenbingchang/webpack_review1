@@ -13,9 +13,8 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin'); // 它的职责是将�
  * CleanWebpackPlugin 插件，打包前自动把output下面的目录清空
  * 要导入 CSV、TSV 和 XML，你可以使用 csv-loader 和 xml-loader。让我们处理这三类文件：
  */
-
+console.log('----------------------', process.env.NODE_ENV)
 // 1、抽取公共代码，import自己写的公共代码；2、vendor抽取成单独文件
-
 module.exports = {
   // 入口文件，可以配置多个
   entry: './src/main.js',
@@ -23,7 +22,7 @@ module.exports = {
   output: {
     filename: '[name].js', // 文件名称
     path: path.resolve(__dirname, 'dist'), // 文件保存的路劲
-    publicPath: '/', // 最终体现在静态资源的uri中，而不是在打包后放到指定的目录中
+    publicPath: process.env.NODE_ENV === 'development' ? '/' : './', // 最终体现在静态资源的uri中，而不是在打包后放到指定的目录中
     chunkFilename: '[name].bundle.js' // 非入口(non-entry) chunk 文件的名称。例如动态引入的文件
   },
   module: {
