@@ -52,8 +52,8 @@ $main_color: #f00;
     height: 16px;
   }
   .img-div {
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
     background: url(./asset/test2.jpg);
     background-size: 100%;
     object-fit: fill;

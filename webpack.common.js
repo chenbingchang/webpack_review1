@@ -13,7 +13,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin'); // 它的职责是将�
  * CleanWebpackPlugin 插件，打包前自动把output下面的目录清空
  * 要导入 CSV、TSV 和 XML，你可以使用 csv-loader 和 xml-loader。让我们处理这三类文件：
  */
-console.log('----------------------', process.env.NODE_ENV)
+
 // 1、抽取公共代码，import自己写的公共代码；2、vendor抽取成单独文件
 module.exports = {
   // 入口文件，可以配置多个

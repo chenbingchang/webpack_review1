@@ -35,7 +35,5 @@ const dev = merge(common, {
     ]
   },
 });
-console.log(process.env.NODE_ENV)
-console.log('##############################', process.env.NODE_ENV === 'development' ? '/' : './')
 
 module.exports = dev;

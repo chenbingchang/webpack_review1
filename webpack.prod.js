@@ -15,7 +15,7 @@ const prod = merge(common, {
             options: {
               // you can specify a publicPath here
               // by default it uses publicPath in webpackOptions.output
-              // publicPath: '../css',
+              // publicPath: '../asset',// css中引用URL资源的前缀，比如背景图片
               hmr: process.env.NODE_ENV === 'development',
             },
           },
@@ -29,6 +29,7 @@ const prod = merge(common, {
       }
     ]
   },
+  
   plugins: [
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
@@ -39,7 +40,5 @@ const prod = merge(common, {
     }),
   ]
 });
-
-console.log(prod)
 
 module.exports = prod;
