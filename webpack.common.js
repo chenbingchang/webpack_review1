@@ -14,16 +14,23 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin'); // 它的职责是将�
  * 要导入 CSV、TSV 和 XML，你可以使用 csv-loader 和 xml-loader。让我们处理这三类文件：
  */
 
+ /**
+  * 如何将打包后的不同类型的文件放置在不同的文件夹下，比如css文件，图片等
+  * 图片：在option选项中添加一个outputPath的属性，表示输出的目录
+  * css:在抽取成单独文件的的css名称配置直接加上路劲
+  * js:直接在文件名加上路劲
+  */
+
 // 1、抽取公共代码，import自己写的公共代码；2、vendor抽取成单独文件
 module.exports = {
   // 入口文件，可以配置多个
   entry: './src/main.js',
   // 出口文件
   output: {
-    filename: '[name].js', // 文件名称
+    filename: 'js/[name].js', // 文件名称
     path: path.resolve(__dirname, 'dist'), // 文件保存的路劲
     publicPath: process.env.NODE_ENV === 'development' ? '/' : './', // 最终体现在静态资源的uri中，而不是在打包后放到指定的目录中
-    chunkFilename: '[name].bundle.js' // 非入口(non-entry) chunk 文件的名称。例如动态引入的文件
+    chunkFilename: 'js/[name].bundle.js' // 非入口(non-entry) chunk 文件的名称。例如动态引入的文件
   },
   module: {
     rules: [
@@ -33,7 +40,9 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'babel-loader'
+            loader: 'babel-loader',
+            options: {
+            }
           }
         ]
       },
@@ -54,7 +63,8 @@ module.exports = {
             loader: 'url-loader',
             options: {
               // limit: 8192 // 8KB，小于8KB的图片将被转换成base64，否则就是正常的图片
-              limit: 0
+              limit: 0,
+              outputPath: 'img/'// 一定要/结尾
             }
           }
         ]
@@ -85,7 +95,7 @@ module.exports = {
         // 初始化的第三方库放到一个文件
         vendors: {
           test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
+          name: 'vendors',// 作用就是chunckName的值
           chunks: 'initial', // 分离初始化的可以了，按需加载的会自己生成一个文件
           priority: 100
         },
