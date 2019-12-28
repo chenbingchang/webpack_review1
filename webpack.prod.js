@@ -26,7 +26,7 @@ const prod = merge(common, {
                * 由于css文件放到了css目录下，背景图片的地址会多了/css，但是图片放到了img目录，所以需要加'../'前缀来回到img目录
                */
               publicPath: '../',// css中引用URL资源的前缀，比如背景图片
-              hmr: process.env.NODE_ENV === 'development',
+              hmr: process.env.NODE_ENV === 'development',// 热替换，开发环境才使用
             }
           },
           {
